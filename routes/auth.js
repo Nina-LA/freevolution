@@ -1,6 +1,6 @@
 const express = require('express');
 const router  = express.Router();
-// const User = require('../models/users');
+const User = require('../models/user');
 
 const bcrypt         = require("bcryptjs");
 const bcryptSalt     = 10;
@@ -8,7 +8,7 @@ const bcryptSalt     = 10;
 //comment test
 
 router.get('/signup', (req, res, next) => {
-  res.render('authentication');
+  res.render('authentication',{layout:false});
 });
 
 router.post('/signup', (req, res, next) => {
@@ -20,7 +20,7 @@ router.post('/signup', (req, res, next) => {
   let user = new User({username, password: hashPass})
   user.save()
   .then(usr => {
-    res.redirect('/');
+    res.redirect('/dashboard');
   })
   .catch(err => {
     next(err)

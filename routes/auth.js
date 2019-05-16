@@ -5,7 +5,7 @@ const router  = express.Router();
 const bcrypt         = require("bcryptjs");
 const bcryptSalt     = 10;
 
-
+//comment test
 
 router.get('/signup', (req, res, next) => {
   res.render('authentication');

@@ -50,8 +50,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.locals.title = 'Express - Generated with IronGenerator';
 
 
-// const auth = require('./routes/auth');
-// app.use('/', auth);
+const auth = require('./routes/auth');
+app.use('/', auth);
 
 const index = require('./routes/index');
 app.use('/', index);

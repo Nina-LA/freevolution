@@ -6,7 +6,9 @@ const UserSchema = new Schema({
   firstName: String,
   email: String,
   username: String,
-  password: String
+  password: String,
+  AWSID: String,
+  FacebookAdsID: String
 })
 
 const User = mongoose.model('User', UserSchema)

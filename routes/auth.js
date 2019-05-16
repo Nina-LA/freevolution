@@ -12,12 +12,12 @@ router.get('/signup', (req, res, next) => {
 });
 
 router.post('/signup', (req, res, next) => {
-  let {username, password} = req.body
+  let {firstName, lastName, email, username, password} = req.body
   
   const salt     = bcrypt.genSaltSync(bcryptSalt);
   const hashPass = bcrypt.hashSync(password, salt);
 
-  let user = new User({username, password: hashPass})
+  let user = new User({firstName, lastName, email,username, password: hashPass})
   user.save()
   .then(usr => {
     res.redirect('/dashboard');

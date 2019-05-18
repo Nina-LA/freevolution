@@ -10,7 +10,7 @@ let isAuthenticated = (req, res, next) => {
   }
 }
 
-router.get('/', (req, res, next) => {
+router.get('/', isAuthenticated, (req, res, next) => {
   console.log('dashboard error')
   res.render('dashboard');
 });

@@ -6,6 +6,14 @@ const bcrypt         = require("bcryptjs");
 const bcryptSalt     = 10;
 
 //comment test
+let isAuthenticated = (req, res, next) => {
+  console.log(req.session)
+  if (req.session.currentUser) {
+    next();
+  } else {
+    res.redirect("/signin");
+  }
+}
 
 router.get('/signup', (req, res, next) => {
   res.render('authentication',{layout:false});
@@ -31,6 +39,9 @@ router.get('/signin', (req, res, next) => {
   res.render('signin');
 });
 
+router.get('/user', isAuthenticated, (req, res, next) => {
+  res.send({user: req.session.currentUser});
+});
 // authRoutes.post("/signin", (req, res, next) => {
 //   passport.authenticate("local", (err, theUser, failureDetails) => {
 //     if (err) {
@@ -82,6 +93,8 @@ router.post("/signin", (req, res, next) => {
       if (bcrypt.compareSync(thePassword, user.password)) {
         // Save the login in the session!
         req.session.currentUser = user;
+        app.locals.user = user;
+        console.log(user)
         res.redirect("/dashboard");
       } else {
         res.render("signin", {
@@ -95,13 +108,6 @@ router.post("/signin", (req, res, next) => {
 });
 
 
-let isAuthenticated = (req, res, next) => {
-  if (req.session.currentUser) {
-    next();
-  } else {
-    res.redirect("/signin");
-  }
-}
 
 
 module.exports = router;

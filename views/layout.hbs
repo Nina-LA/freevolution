@@ -89,6 +89,8 @@ License: You must have a valid license purchased only from themeforest(the above
 
 		<!--end::Layout Skins -->
 		<link rel="shortcut icon" href="./assets/media/logos/favicon.ico" />
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
+
 	</head>
 
 	<!-- end::Head -->
@@ -351,7 +353,7 @@ License: You must have a valid license purchased only from themeforest(the above
 								<div class="kt-header__topbar-item kt-header__topbar-item--user">
 									<div class="kt-header__topbar-wrapper" data-toggle="dropdown" data-offset="10px,0px">
 										<span class="kt-header__topbar-welcome kt-visible-desktop">Hi,</span>
-										<span class="kt-header__topbar-username kt-visible-desktop">{{user.firstName}}</span>
+										<span class="kt-header__topbar-username kt-visible-desktop"><span id="userid"></span></span>
 										<img alt="Pic" src="./assets/media/users/300_21.jpg" />
 										<span class="kt-header__topbar-icon kt-bg-brand kt-hidden"><b>S</b></span>
 									</div>
@@ -673,6 +675,13 @@ License: You must have a valid license purchased only from themeforest(the above
 		<!--begin::Page Scripts(used by this page) -->
 		<script src="./assets/js/demo11/pages/dashboard.js" type="text/javascript"></script>
 
+		<script>
+			axios.get("/user")
+			.then(res => {
+				let user = res.data.user
+				$('#userid').html(user.firstName)
+			})
+		</script>
 		<!--end::Page Scripts -->
 	</body>
 

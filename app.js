@@ -11,6 +11,8 @@ const path         = require('path');
 const session    = require("express-session");
 const MongoStore = require("connect-mongo")(session);
 const passport     = require('passport');
+const bcrypt     = require('bcrypt');
+const User     = require('./models/user');
 const LocalStrategy     = require('passport-local').Strategy;
 
 mongoose
@@ -67,6 +69,7 @@ passport.deserializeUser((id, cb) => {
   });
 });
 passport.use(new LocalStrategy((username, password, next) => {
+  console.log('ok', username, password)
   User.findOne({ username }, (err, user) => {
     if (err) {
       return next(err);

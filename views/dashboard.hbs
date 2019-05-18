@@ -6,7 +6,7 @@
 	<script>
     $(function(){
 
-    axios.get('integrations/get_cost')
+    axios.get('/dashboard/get_cost')
     .then(data => {
         console.log(data.data)
         let labels = data.data.map(el => el.TimePeriod.Start);

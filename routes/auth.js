@@ -70,7 +70,7 @@ router.get('/user', isAuthenticated, (req, res, next) => {
 //   })(req, res, next);
 // });
 
-router.post("/signin", passport.authenticate("local", {
+router.post("/signin", (req,res,next)=>{console.log("izi"); next();}, passport.authenticate("local", {
     successRedirect: "/dashboard",
     failureRedirect: "/signin",
     passReqToCallback: true
@@ -110,8 +110,5 @@ router.post("/signin", passport.authenticate("local", {
 //     next(error);
 //   })
 // });
-
-
-
 
 module.exports = router;

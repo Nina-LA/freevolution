@@ -76,7 +76,7 @@ router.post("/signin", (req, res, next) => {
   const thePassword = req.body.password;
 
   if (theUsername === "" || thePassword === "") {
-    res.render("signin", {
+    res.render("signin",{layout:false}, {
       errorMessage: "Please enter both, username and password to sign in."
     });
     return;

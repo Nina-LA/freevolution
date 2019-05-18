@@ -1,9 +1,10 @@
 const express = require('express');
 const router  = express.Router();
+const AWS = require('aws-sdk')
 
 /* GET dashboard page. */
 let isAuthenticated = (req, res, next) => {
-  if (req.session.currentUser) {
+  if (req.user) {
     next();
   } else {
     res.redirect("/signin");

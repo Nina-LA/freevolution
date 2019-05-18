@@ -1,3 +1,51 @@
+<script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous">
+  </script>
+	<script>
+    $(function(){
+
+    axios.get('integrations/get_cost')
+    .then(data => {
+        console.log(data.data)
+        let labels = data.data.map(el => el.TimePeriod.Start);
+        let dataSetData = data.data.map(el => el.Total.UnblendedCost.Amount);
+        var ctx = document.getElementById('kt_chart_quick_stats_1').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                {{!-- labels: Object.keys(data.Data), --}}
+                labels: labels,
+                datasets: [{
+                    label: 'Amount in dollars',
+                    data: dataSetData,
+                    backgroundColor:
+                        'rgba(255, 99, 132, 0.2)',
+                    borderColor:
+                        'rgba(255, 99, 132, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                {{!-- title: {
+                    display: true,
+                    text: 'Expenses per months'
+                }, --}}
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+    })
+
+    
+    });
+</script>
 <div class="kt-content kt-grid__item kt-grid__item--fluid" id="kt_content">
 
 								<!--Begin::Dashboard 4-->
@@ -13,25 +61,12 @@
 													<div class="kt-portlet__body kt-portlet__body--fluid">
 														<div class="kt-widget26">
 															<div class="kt-widget26__content">
-																<span class="kt-widget26__number">570</span>
-																<span class="kt-widget26__desc">Total month</span>
+																<span class="kt-widget26__number">Dépenses par mois</span>
+																{{!-- <span class="kt-widget26__desc">Total month</span> --}}
+																
 															</div>
-															<div class="kt-widget26__chart" style="height:100px; width: 230px;">
-																<canvas id="kt_chart_quick_stats_1"></canvas>
-															</div>
-														</div>
-													</div>
-												</div>
-												<div class="kt-space-20"></div>
-												<div class="kt-portlet kt-portlet--height-fluid-half kt-portlet--border-bottom-danger">
-													<div class="kt-portlet__body kt-portlet__body--fluid">
-														<div class="kt-widget26">
-															<div class="kt-widget26__content">
-																<span class="kt-widget26__number">640</span>
-																<span class="kt-widget26__desc">Total week</span>
-															</div>
-															<div class="kt-widget26__chart" style="height:100px; width: 230px;">
-																<canvas id="kt_chart_quick_stats_2"></canvas>
+															<div class="kt-widget26__chart" style="height:200px; width: 230px;">
+																<canvas height=190 id="kt_chart_quick_stats_1"></canvas>
 															</div>
 														</div>
 													</div>

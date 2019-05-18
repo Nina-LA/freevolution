@@ -112,3 +112,4 @@ router.post("/signin", (req,res,next)=>{console.log("izi"); next();}, passport.a
 // });
 
 module.exports = router;
+

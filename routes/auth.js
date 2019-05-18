@@ -36,7 +36,7 @@ router.post('/signup', (req, res, next) => {
 });
 
 router.get('/signin', (req, res, next) => {
-  res.render('signin');
+  res.render('signin',{layout:false});
 });
 
 router.get('/user', isAuthenticated, (req, res, next) => {

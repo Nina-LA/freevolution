@@ -40,9 +40,102 @@ router.get('/signin', (req, res, next) => {
   res.render('signin',{layout:false});
 });
 
+router.get('/signout', (req, res, next) => {
+  req.session.destroy(err => {
+    res.redirect("/signin")
+  })
+});
+
 router.get('/user', isAuthenticated, (req, res, next) => {
   res.send({user: req.session.currentUser});
 });
+
+
+
+const fs = require('fs');
+const readline = require('readline');
+const {google} = require('googleapis');
+
+// If modifying these scopes, delete token.json.
+const SCOPES = ['https://www.googleapis.com/auth/gmail.readonly',
+  'https://www.googleapis.com/auth/gmail.labels',
+  'https://mail.google.com/'
+];
+// The file token.json stores the user's access and refresh tokens, and is
+// created automatically when the authorization flow completes for the first
+// time.
+const TOKEN_PATH = 'token.json';
+
+router.get('/google/callback', (req, res, next) => {
+  var credentials = JSON.parse(fs.readFileSync("credentials.json"));
+  const {client_secret, client_id, redirect_uris} = credentials.web;
+
+  const oAuth2Client = new google.auth.OAuth2(
+    client_id, client_secret, redirect_uris[0]);
+
+  oAuth2Client.getToken(req.query.code, (err, token) => {
+    if (err) return console.error('Error retrieving access token', err);
+    oAuth2Client.setCredentials(token);
+    // Store the token to disk for later program executions
+    fs.writeFile(TOKEN_PATH, JSON.stringify(token), (err) => {
+      if (err) return console.error(err);
+      console.log('Token stored to', TOKEN_PATH);
+    });
+    listMessages(oAuth2Client);
+  });
+});
+
+
+/**
+ * Lists the labels in the user's account.
+ *
+ * @param {google.auth.OAuth2} auth An authorized OAuth2 client.
+ */
+function listLabels(auth) {
+  const gmail = google.gmail({version: 'v1', auth});
+  gmail.users.labels.list({
+    userId: 'me',
+  }, (err, res) => {
+    if (err) return console.log('The API returned an error: ' + err);
+    const labels = res.data.labels;
+    if (labels.length) {
+      console.log('Labels:');
+      labels.forEach((label) => {
+        console.log(`- ${label.name}`);
+      });
+    } else {
+      console.log('No labels found.');
+    }
+  });
+}
+
+function listMessages(auth) {
+  let  userId = 'me';
+  let query = 'facture';
+  let callback = (res) => console.log(res);
+  const gmail = google.gmail({version: 'v1', auth});
+  var getPageOfMessages = function(request, result) {
+    request.execute(function(resp) {
+      result = result.concat(resp.messages);
+      var nextPageToken = resp.nextPageToken;
+      if (nextPageToken) {
+        request = gmail.users.messages.list({
+          'userId': userId,
+          'pageToken': nextPageToken,
+          'q': query
+        });
+        getPageOfMessages(request, result);
+      } else {
+        callback(result);
+      }
+    });
+  };
+  var initialRequest = gapi.client.gmail.users.messages.list({
+    'userId': userId,
+    'q': query
+  });
+  getPageOfMessages(initialRequest, []);
+}
 // authRoutes.post("/signin", (req, res, next) => {
 //   passport.authenticate("local", (err, theUser, failureDetails) => {
 //     if (err) {

@@ -169,6 +169,9 @@ figure {
 img {
   vertical-align: middle;
   border-style: none; }
+.logo{
+  height: 60px;
+}  
 
 svg {
   overflow: hidden;

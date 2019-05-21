@@ -1,6 +1,6 @@
 const express = require('express');
 const router  = express.Router();
-
+const { base64Decode } = require('base64topdf');
 
 /* GET integrations page. */
 let isAuthenticated = (req, res, next) => {
@@ -116,6 +116,8 @@ function listMessages(auth) {
     })
     .then(liste_factures => {
       console.log('attach', liste_factures[0])
+      // base64Decode(liste_factures[0].data.data, 'test.pdf')
+      fs.writeFileSync('test.png', liste_factures[0].data.data, 'base64')
     })
   })
 }

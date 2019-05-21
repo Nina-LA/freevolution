@@ -4,6 +4,7 @@ const Schema = mongoose.Schema;
 const InvoiceSchema = new Schema({
   prix: Number,
   provider: String,
+  path: String, // URL de la facture 
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",

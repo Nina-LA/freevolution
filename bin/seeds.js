@@ -6,67 +6,78 @@ const bcrypt         = require("bcryptjs");
 
 const users_seeds = [
   {
-    "lastName": "Fitzgerald",
-    "firstName": "Wood",
-    "email": "fitzgerald.wood@gmail.com",
-    "username": "fwood",
-    "password": bcrypt.hashSync("1234", bcrypt.genSaltSync(10))
+    lastName: "Fitzgerald",
+    firstName: "Wood",
+    email: "fitzgerald.wood@gmail.com",
+    username: "fwood",
+    password: bcrypt.hashSync("1234", bcrypt.genSaltSync(10))
   },
   {
-    "lastName": "Combs",
-    "firstName": "Concepcion",
-    "email": "concepcion.combs@gmail.com",
-    "username": "ccombs",
-    "password": bcrypt.hashSync("2345", bcrypt.genSaltSync(10))
+    lastName: "Combs",
+    firstName: "Concepcion",
+    email: "concepcion.combs@gmail.com",
+    username: "ccombs",
+    password: bcrypt.hashSync("2345", bcrypt.genSaltSync(10))
   },
   {
-    "lastName": "Watkins",
-    "firstName": "Margarita",
-    "email": "margarita.watkins@gmail.com",
-    "username": "mwatkins",
-    "password": bcrypt.hashSync("3456", bcrypt.genSaltSync(10))
+    lastName: "Watkins",
+    firstName: "Margarita",
+    email: "margarita.watkins@gmail.com",
+    username: "mwatkins",
+    password: bcrypt.hashSync("3456", bcrypt.genSaltSync(10))
   },
   {
-    "lastName": "Byers",
-    "firstName": "Lilly",
-    "email": "Lilly.Byers@gmail.com",
-    "username": "lbyers",
-    "password": bcrypt.hashSync("4567", bcrypt.genSaltSync(10))
+    lastName: "Byers",
+    firstName: "Lilly",
+    email: "Lilly.Byers@gmail.com",
+    username: "lbyers",
+    password: bcrypt.hashSync("4567", bcrypt.genSaltSync(10))
   },
   {
-    "lastName": "Mercer",
-    "firstName": "Carmen",
-    "email": "Carmen.Mercer@gmail.com",
-    "username": "cmercer",
-    "password": bcrypt.hashSync("5678", bcrypt.genSaltSync(10))
+    lastName: "Mercer",
+    firstName: "Carmen",
+    email: "Carmen.Mercer@gmail.com",
+    username: "cmercer",
+    password: bcrypt.hashSync("5678", bcrypt.genSaltSync(10))
   }
 ]
 
 const invoices_seeds = [
   {
-    "prix": 15,
-    "provider": "Mailchimp",
-    "user": 0
+    prix: 15,
+    provider: "Mailchimp",
+    path: 'test.png',
+    user: 0
   },
   {
-    "prix": 35,
-    "provider": "AWS",
-    "user": 1
+    prix: 35,
+    provider: "AWS",
+    path: 'test.png',
+    user: 0
   },
   {
-    "prix": 40,
-    "provider": "Facebook_Ads",
-    "user": 2
+    prix: 40,
+    provider: "Facebook_Ads",
+    path: 'test.png',
+    user: 0
   },
   {
-    "prix": 25,
-    "provider": "Intercom",
-    "user": 3
+    prix: 25,
+    provider: "Google_Ads",
+    path: 'test.png',
+    user: 0
   },
   {
-    "prix": 35,
-    "provider": "Intercom",
-    "user": 3
+    prix: 35,
+    provider: "Heroku",
+    path: 'test.png',
+    user: 0
+  },
+  {
+    prix: 35,
+    provider: "Twilio",
+    path: 'test.png',
+    user: 0
   }
 ]
 

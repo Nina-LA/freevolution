@@ -96,8 +96,8 @@ app.use('/', auth);
 const index = require('./routes/index');
 app.use('/', index);
 
-const invoices = require('./routes/invoices');
-app.use('/invoices', invoices);
+// const invoices = require('./routes/invoices');
+// app.use('/invoices', invoices);
 
 const integrations = require('./routes/integrations');
 app.use('/integrations', integrations);
